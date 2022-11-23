@@ -1,4 +1,4 @@
-package com.vasilievaleksey.extgitjiraintegration.api;
+package com.vasilievaleksey.plugin.api;
 
 public interface MyPluginComponent
 {

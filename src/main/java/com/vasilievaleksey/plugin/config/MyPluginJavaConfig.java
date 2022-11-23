@@ -1,13 +1,14 @@
-package com.vasilievaleksey.extgitjiraintegration.config;
+package com.vasilievaleksey.plugin.config;
 
-import com.vasilievaleksey.extgitjiraintegration.api.MyPluginComponent;
-import com.vasilievaleksey.extgitjiraintegration.impl.MyPluginComponentImpl;
 import com.atlassian.plugins.osgi.javaconfig.configs.beans.ModuleFactoryBean;
 import com.atlassian.plugins.osgi.javaconfig.configs.beans.PluginAccessorBean;
 import com.atlassian.sal.api.ApplicationProperties;
+import com.vasilievaleksey.plugin.api.MyPluginComponent;
+import com.vasilievaleksey.plugin.impl.MyPluginComponentImpl;
 import org.osgi.framework.ServiceRegistration;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -19,6 +20,7 @@ import static com.atlassian.plugins.osgi.javaconfig.OsgiServices.importOsgiServi
         ModuleFactoryBean.class,
         PluginAccessorBean.class
 })
+@ComponentScan
 public class MyPluginJavaConfig {
 
 

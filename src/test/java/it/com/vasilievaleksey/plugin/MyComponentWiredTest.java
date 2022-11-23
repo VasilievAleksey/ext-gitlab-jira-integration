@@ -1,10 +1,10 @@
-package it.com.vasilievaleksey.extgitjiraintegration;
+package it.com.vasilievaleksey.plugin;
 
+import com.atlassian.plugins.osgi.test.AtlassianPluginsTestRunner;
+import com.atlassian.sal.api.ApplicationProperties;
+import com.vasilievaleksey.plugin.api.MyPluginComponent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.atlassian.plugins.osgi.test.AtlassianPluginsTestRunner;
-import com.vasilievaleksey.extgitjiraintegration.api.MyPluginComponent;
-import com.atlassian.sal.api.ApplicationProperties;
 
 import static org.junit.Assert.assertEquals;
 

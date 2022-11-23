@@ -1,7 +1,7 @@
-package com.vasilievaleksey.extgitjiraintegration.impl;
+package com.vasilievaleksey.plugin.impl;
 
 import com.atlassian.sal.api.ApplicationProperties;
-import com.vasilievaleksey.extgitjiraintegration.api.MyPluginComponent;
+import com.vasilievaleksey.plugin.api.MyPluginComponent;
 
 
 public class MyPluginComponentImpl implements MyPluginComponent
