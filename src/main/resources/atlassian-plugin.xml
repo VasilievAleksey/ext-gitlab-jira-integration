@@ -1,24 +1,38 @@
-<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
-    <plugin-info>
-        <description>${project.description}</description>
-        <version>${project.version}</version>
-        <vendor name="${project.organization.name}" url="${project.organization.url}" />
-        <param name="plugin-icon">images/pluginIcon.png</param>
-        <param name="plugin-logo">images/pluginLogo.png</param>
-    </plugin-info>
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <!-- add our i18n resource -->
-    <resource type="i18n" name="i18n" location="ext-git-jira-integration"/>
-    
-    <!-- add our web resources -->
-    <web-resource key="ext-git-jira-integration-resources" name="ext-git-jira-integration Web Resources">
-        <dependency>com.atlassian.auiplugin:ajs</dependency>
-        
-        <resource type="download" name="ext-git-jira-integration.css" location="/css/ext-git-jira-integration.css"/>
-        <resource type="download" name="ext-git-jira-integration.js" location="/js/ext-git-jira-integration.js"/>
-        <resource type="download" name="images/" location="/images"/>
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2"> 
+  <plugin-info> 
+    <description>${project.description}</description>  
+    <version>${project.version}</version>  
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>  
+    <param name="plugin-icon">images/pluginIcon.png</param>  
+    <param name="plugin-logo">images/pluginLogo.png</param> 
+  </plugin-info>  
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="ext-git-jira-integration"/>
+  <!-- add our web resources -->
+  <web-resource key="ext-git-jira-integration-resources" name="ext-git-jira-integration Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="ext-git-jira-integration.css" location="/css/ext-git-jira-integration.css"/>
+    <resource type="download" name="ext-git-jira-integration.js" location="/js/ext-git-jira-integration.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <context>ext-git-jira-integration</context>
+  </web-resource>
+  <rest name="extjiragit" i18n-name-key="extjiragit.name" key="extjiragit" path="/extjiragit" version="1.0">
+    <description key="extjiragit.description">The extjiragit Plugin</description>
+  </rest>
+  <servlet name="Admin Repo Manage Servlet" i18n-name-key="admin-repo-manage-servlet.name" key="admin-repo-manage-servlet" class="com.vasilievaleksey.plugin.servlet.AdminRepoManageServlet">
+    <description key="admin-repo-manage-servlet.description">The Admin Repo Manage Servlet Plugin</description>
+    <url-pattern>/git/admin-repo-manage-servlet</url-pattern>
+  </servlet>
+  <web-section name="plugin-configuration-section" i18n-name-key="plugin-configuration-section.name" key="plugin-configuration-section" location="admin_plugins_menu" weight="1000">
+    <description key="plugin-configuration-section.description">The configuration-section Plugin</description>
+    <label key="plugin-configuration-section.label"/>
+  </web-section>
+  <web-item name="admin-repo-manage-item" i18n-name-key="admin-repo-manage-item.name" key="admin-repo-manage-item" section="admin_plugins_menu/plugin-configuration-section" weight="1000">
+    <description key="admin-repo-manage-item.description">The admin-repo-manage-item Plugin</description>
+    <label key="admin-repo-manage-item.label"/>
+    <link linkId="admin-repo-manage-item-link">/plugins/servlet/git/admin-repo-manage-servlet</link>
+  </web-item>
 
-        <context>ext-git-jira-integration</context>
-    </web-resource>
-    
 </atlassian-plugin>

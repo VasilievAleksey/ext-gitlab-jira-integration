@@ -1,0 +1,24 @@
+
+<html>
+<head>
+    <title>$i18n.getText("ext-git-jira-integration.admin.label")</title>
+    <meta name="decorator" content="atl.admin" />
+    <meta name="admin.active.section" content="plugin-admin-config-link"/>
+    $webResourceManager.requireResource("com.atlassian.plugins.ext-git-jira-integration-admin-ui-plugin:ext-git-jira-integration-admin-ui-plugin-resources")
+</head>
+<body>
+<form id="admin" class="aui">
+    <div class="field-group">
+        <label for="name">$i18n.getText("ext-git-jira-integration.admin.name.label")</label>
+        <input type="text" id="name" name="name" class="text">
+    </div>
+    <div class="field-group">
+        <label for="time">$i18n.getText("ext-git-jira-integration.admin.time.label")</label>
+        <input type="text" id="time" name="time" class="text">
+    </div>
+    <div class="field-group">
+        <input type="submit" value="$i18n.getText("ext-git-jira-integration.admin.save.label")" class="button">
+    </div>
+</form>
+</body>
+</html>

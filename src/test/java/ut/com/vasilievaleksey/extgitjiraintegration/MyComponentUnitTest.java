@@ -1,8 +1,8 @@
 package ut.com.vasilievaleksey.extgitjiraintegration;
 
+import com.vasilievaleksey.plugin.api.MyPluginComponent;
+import com.vasilievaleksey.plugin.impl.MyPluginComponentImpl;
 import org.junit.Test;
-import com.vasilievaleksey.extgitjiraintegration.api.MyPluginComponent;
-import com.vasilievaleksey.extgitjiraintegration.impl.MyPluginComponentImpl;
 
 import static org.junit.Assert.assertEquals;
 
