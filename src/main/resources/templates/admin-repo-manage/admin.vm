@@ -1,10 +1,9 @@
-
+$webResourceManager.requireResourcesForContext("ext-git-jira-integration")
 <html>
 <head>
     <title>$i18n.getText("ext-git-jira-integration.admin.label")</title>
     <meta name="decorator" content="atl.admin" />
     <meta name="admin.active.section" content="plugin-admin-config-link"/>
-    $webResourceManager.requireResource("com.atlassian.plugins.ext-git-jira-integration-admin-ui-plugin:ext-git-jira-integration-admin-ui-plugin-resources")
 </head>
 <body>
 <form id="admin" class="aui">

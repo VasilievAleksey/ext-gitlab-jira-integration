@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Component
 public class AdminRepoManageServlet extends HttpServlet {
-    @ComponentImport
+    @ComponentImport("com.atlassian.sal.api.user.UserManager")
     private final UserManager userManager;
     @ComponentImport
     private final LoginUriProvider loginUriProvider;
