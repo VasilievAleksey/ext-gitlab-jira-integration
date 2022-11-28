@@ -7,7 +7,12 @@
     <vendor name="${project.organization.name}" url="${project.organization.url}"/>  
     <param name="plugin-icon">images/pluginIcon.png</param>  
     <param name="plugin-logo">images/pluginLogo.png</param> 
-  </plugin-info>  
+  </plugin-info>
+  <ao key="ao-module">
+    <description>The module configuring the Active Objects service used by this plugin</description>
+    <entity>com.vasilievaleksey.plugin.model.Repository</entity>
+    <entity>com.vasilievaleksey.plugin.model.Credentials</entity>
+  </ao>
   <!-- add our i18n resource -->
   <resource type="i18n" name="i18n" location="ext-git-jira-integration"/>
   <!-- add our web resources -->
@@ -18,8 +23,8 @@
     <resource type="download" name="images/" location="/images"/>
     <context>ext-git-jira-integration</context>
   </web-resource>
-  <rest name="extjiragit" i18n-name-key="extjiragit.name" key="extjiragit" path="/extjiragit" version="1.0">
-    <description key="extjiragit.description">The extjiragit Plugin</description>
+  <rest name="gitplugin" i18n-name-key="gitplugin.name" key="gitplugin" path="/gitplugin" version="1.0">
+    <description key="gitplugin.description">The extjiragit Plugin</description>
   </rest>
   <servlet name="Admin Repo Manage Servlet" i18n-name-key="admin-repo-manage-servlet.name" key="admin-repo-manage-servlet" class="com.vasilievaleksey.plugin.servlet.AdminRepoManageServlet">
     <description key="admin-repo-manage-servlet.description">The Admin Repo Manage Servlet Plugin</description>

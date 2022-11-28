@@ -1,32 +1,29 @@
 AJS.toInit(function () {
-    AJS.log("Your message here.");
 
-    var url = AJS.contextPath() + "/rest/extjiragit/1.0/";
-    AJS.log(url);
+    const basUrl = AJS.contextPath() + "/rest/gitplugin/1.0/";
 
-    // wait for the DOM (i.e., document "skeleton") to load. This likely isn't necessary for the current case,
-    // but may be helpful for AJAX that provides secondary content.
-    AJS.$.ajax({
-            url: url,
-            dataType: "json"
-        }).done(function(config) { // when the configuration is returned...
-            // ...populate the form.
-            $("#name").val(config.name);
-            $("#time").val(config.time);
-
-            AJS.$("#admin").submit(function(e) {
-                e.preventDefault();
-                updateConfig();
-        });
+    AJS.$("#add-repo").click(function(e) {
+        e.preventDefault();
+        AJS.dialog2("#add-repo-dialog").show();
     });
 
-    function updateConfig() {
+    AJS.$("#add-repo-submit-button").click(function (e) {
+        e.preventDefault();
         AJS.$.ajax({
-            url: url,
-            type: "PUT",
-            contentType: "application/json",
-            data: '{ "name": "' + AJS.$("#name").attr("value") + '", "time": ' +  AJS.$("#time").attr("value") + ' }',
-            processData: false
-        });
-    }
+            url: basUrl + "repository",
+            type: 'post',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                    url: AJS.$('#repo-url').val(),
+                    username: AJS.$('#username').val(),
+                    password: AJS.$('#password').val(),
+                    accessToken: AJS.$('#accessToken').val()
+                }
+            ),
+            dataType: "text",
+            success: function () {
+                AJS.dialog2("#add-repo-dialog").hide();
+            }
+        })
+    });
 });
