@@ -5,7 +5,7 @@
     <groupId>com.vasilievaleksey.plugin</groupId>
     <artifactId>ext-git-jira-integration-plugin</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>plugin</name>
+    <name>ext-git-jira-integration-plugin</name>
     <description>This is the ext-git-jira-integration plugin for Atlassian JIRA.</description>
     <packaging>atlassian-plugin</packaging>
     <dependencies>
@@ -149,7 +149,7 @@
         <dependency>
             <groupId>com.atlassian.aui</groupId>
             <artifactId>auiplugin</artifactId>
-            <version>9.4.5</version>
+            <version>9.4.8</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -194,6 +194,8 @@
                     <productVersion>${jira.version}</productVersion>
                     <productDataVersion>${jira.version}</productDataVersion>
                     <enableQuickReload>true</enableQuickReload>
+                    <enableDevToolbox>true</enableDevToolbox>
+                    <enablePluginViewer>true</enablePluginViewer>
                     <!-- See here for an explanation of default instructions: -->
                     <!-- https://developer.atlassian.com/docs/advanced-topics/configuration-of-instructions-in-atlassian-plugins -->
                     <instructions>
@@ -232,8 +234,8 @@
         </plugins>
     </build>
     <properties>
-        <jira.version>7.13.0</jira.version>
-        <amps.version>8.1.2</amps.version>
+        <jira.version>9.1.0</jira.version>
+        <amps.version>8.9.0</amps.version>
         <activeobjects>4.1.0-04b63d10</activeobjects>
         <plugin.testrunner.version>2.0.2</plugin.testrunner.version>
         <osgi.javaconfig.version>0.2.0</osgi.javaconfig.version>

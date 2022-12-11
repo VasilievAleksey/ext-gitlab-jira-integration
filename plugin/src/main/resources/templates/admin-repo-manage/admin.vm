@@ -6,42 +6,24 @@ $webResourceManager.requireResourcesForContext("ext-git-jira-integration")
     <meta name="admin.active.section" content="plugin-admin-config-link"/>
 </head>
 <body>
-    <div class="add-repo">
-        <button id="add-repo" class="aui-button aui-button-primary add-repo-button">
-            $i18n.getText("git-repo-manage-item.create-new-repo-button")
-        </button>
-    </div>
+    <table id="project-config-versions-table"></table>
 
-    <section id="add-repo-dialog" class="aui-dialog2 aui-dialog2-small aui-layer" role="dialog" aria-hidden="true">
+    <section id="delete-confirmation-dialog" class="aui-dialog2 aui-dialog2-medium aui-dialog2-warning aui-layer" role="dialog" aria-hidden="true" data-aui-focus="false" data-aui-blanketed="true" style="z-index: 3000;">
         <header class="aui-dialog2-header">
-            <h2 class="aui-dialog2-header-main">Add repository</h2>
-            <a class="aui-dialog2-header-close">
-                <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
-            </a>
+            <h2 class="aui-dialog2-header-main">Confirm</h2>
+            <button class="aui-dialog2-header-close" aria-label="Close dialog" tabindex="0">
+                <span class="aui-icon aui-icon-small aui-iconfont-close-dialog"></span>
+            </button>
         </header>
         <div class="aui-dialog2-content">
-            <form class="aui">
-                <div class="field-group">
-                    <label for="repo-url">Git repository URL<span class="aui-icon icon-required">(required)</span></label>
-                    <input class="text medium-field" type="text" id="repo-url" name="url">
-                </div>
-                <div class="field-group">
-                    <label for="username">Username</label>
-                    <input class="text medium-field" type="text" id="username" name="username">
-                </div>
-                <div class="field-group">
-                    <label for="password">Password</label>
-                    <input class="text medium-field" type="text" id="password" name="password">
-                </div>
-                <div class="field-group">
-                    <label for="accessToken">Access token</label>
-                    <input class="text medium-field" type="text" id="accessToken" name="accessToken">
-                </div>
-            </form>
+            <p>You want to delete row:</p>
+            <p id="restful-table-model"></p>
+            <p> Are you sure?</p>
         </div>
         <footer class="aui-dialog2-footer">
             <div class="aui-dialog2-footer-actions">
-                <button id="add-repo-submit-button" class="aui-button aui-button-primary">Send</button>
+                <button id="dialog-submit-button" class="aui-button aui-button-primary" resolved="">Yes</button>
+                <button id="warning-dialog-cancel" class="aui-button aui-button-link" resolved="">Cancel</button>
             </div>
         </footer>
     </section>

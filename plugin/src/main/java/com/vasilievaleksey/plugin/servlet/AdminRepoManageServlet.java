@@ -23,6 +23,8 @@ public class AdminRepoManageServlet extends HttpServlet {
     @ComponentImport
     private final TemplateRenderer renderer;
 
+    private final static String ADMIN_TEMPLATE_NAME = "/templates/admin-repo-manage/admin.vm";
+
     @Autowired
     public AdminRepoManageServlet(UserManager userManager, LoginUriProvider loginUriProvider, TemplateRenderer renderer) {
         this.userManager = userManager;
@@ -34,7 +36,7 @@ public class AdminRepoManageServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (isCurrentUserAdmin(request)) {
             response.setContentType("text/html;charset=utf-8");
-            renderer.render("/templates/admin-repo-manage/admin.vm", response.getWriter());
+            renderer.render(ADMIN_TEMPLATE_NAME, response.getWriter());
         } else {
             response.sendRedirect(loginUriProvider.getLoginUri(getUri(request)).toASCIIString());
         }

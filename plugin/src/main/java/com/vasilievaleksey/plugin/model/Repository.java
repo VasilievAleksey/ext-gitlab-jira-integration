@@ -25,15 +25,11 @@ public interface Repository extends Entity {
 
     void setLastUpdateTime(Date lastUpdateTime);
 
-    String getUsername();
-
-    void setUsername(String username);
-
-    String getPassword();
-
-    void setPassword(String password);
-
     String getAccessToken();
 
     void setAccessToken(String accessToken);
+
+    String getDescription();
+
+    void setDescription(String description);
 }

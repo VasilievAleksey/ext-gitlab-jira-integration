@@ -11,15 +11,16 @@
   <ao key="ao-module">
     <description>The module configuring the Active Objects service used by this plugin</description>
     <entity>com.vasilievaleksey.plugin.model.Repository</entity>
-    <entity>com.vasilievaleksey.plugin.model.Credentials</entity>
   </ao>
   <!-- add our i18n resource -->
   <resource type="i18n" name="i18n" location="ext-git-jira-integration"/>
   <!-- add our web resources -->
   <web-resource key="ext-git-jira-integration-resources" name="ext-git-jira-integration Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <dependency>com.atlassian.auiplugin:aui-restfultable</dependency>
+    <dependency>com.atlassian.auiplugin:dialog2</dependency>
     <resource type="download" name="ext-git-jira-integration.css" location="/css/ext-git-jira-integration.css"/>
-    <resource type="download" name="ext-git-jira-integration.js" location="/js/ext-git-jira-integration.js"/>
+    <resource type="download" name="admin-repo-manage-table.js" location="/js/admin-repo-manage-table.js"/>
     <resource type="download" name="images/" location="/images"/>
     <context>ext-git-jira-integration</context>
   </web-resource>
