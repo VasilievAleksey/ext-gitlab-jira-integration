@@ -9,6 +9,10 @@ import java.util.Date;
 @Preload
 @Table("GIT_REPOSITORY")
 public interface Repository extends Entity {
+    Long getGitId();
+
+    void setGitId(Long gitId);
+
     String getName();
 
     void setName(String name);

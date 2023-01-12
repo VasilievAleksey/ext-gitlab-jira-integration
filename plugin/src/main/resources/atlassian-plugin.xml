@@ -18,7 +18,7 @@
   <web-resource key="ext-git-jira-integration-resources" name="ext-git-jira-integration Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <dependency>com.atlassian.auiplugin:aui-restfultable</dependency>
-    <dependency>com.atlassian.auiplugin:dialog2</dependency>
+    <dependency>com.atlassian.auiplugin:aui-dialog2</dependency>
     <resource type="download" name="ext-git-jira-integration.css" location="/css/ext-git-jira-integration.css"/>
     <resource type="download" name="admin-repo-manage-table.js" location="/js/admin-repo-manage-table.js"/>
     <resource type="download" name="images/" location="/images"/>

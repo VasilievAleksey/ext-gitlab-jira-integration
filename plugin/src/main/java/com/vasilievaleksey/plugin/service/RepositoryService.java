@@ -3,15 +3,15 @@ package com.vasilievaleksey.plugin.service;
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.vasilievaleksey.plugin.dto.RepositoryDto;
+import com.vasilievaleksey.plugin.dto.RepositoryInfoDto;
+import com.vasilievaleksey.plugin.integration.PluginServerClient;
 import com.vasilievaleksey.plugin.mapper.RepositoryMapper;
 import com.vasilievaleksey.plugin.model.Repository;
-import com.vasilievaleksey.plugin.model.RepositoryStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,11 +22,13 @@ public class RepositoryService {
     @ComponentImport
     private final ActiveObjects activeObjects;
     private final RepositoryMapper repositoryMapper;
+    private final PluginServerClient pluginServerClient;
 
     @Autowired
-    public RepositoryService(ActiveObjects activeObjects, RepositoryMapper repositoryMapper) {
+    public RepositoryService(ActiveObjects activeObjects, RepositoryMapper repositoryMapper, PluginServerClient pluginServerClient) {
         this.activeObjects = activeObjects;
         this.repositoryMapper = repositoryMapper;
+        this.pluginServerClient = pluginServerClient;
     }
 
     public List<RepositoryDto> getAll() {
@@ -36,7 +38,9 @@ public class RepositoryService {
     }
 
     public RepositoryDto create(RepositoryDto repositoryDto) {
-        Repository repository = repositoryMapper.mapDtoToEntity(repositoryDto, activeObjects.create(Repository.class));
+        RepositoryInfoDto repositoryInfoDto = pluginServerClient.getRepositoryInfo(repositoryDto);
+        Repository repository = repositoryMapper.mapDtoToEntity(repositoryDto, repositoryInfoDto, activeObjects.create(Repository.class));
+
         repository.save();
 
         return repositoryMapper.convertToDTO(repository);

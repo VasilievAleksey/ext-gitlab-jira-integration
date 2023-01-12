@@ -1,6 +1,7 @@
 package com.vasilievaleksey.plugin.mapper;
 
 import com.vasilievaleksey.plugin.dto.RepositoryDto;
+import com.vasilievaleksey.plugin.dto.RepositoryInfoDto;
 import com.vasilievaleksey.plugin.model.Repository;
 import com.vasilievaleksey.plugin.model.RepositoryStatus;
 import org.springframework.stereotype.Component;
@@ -20,12 +21,14 @@ public class RepositoryMapper {
                 .build();
     }
 
-    public Repository mapDtoToEntity(RepositoryDto repositoryDto, Repository repository) {
+    public Repository mapDtoToEntity(RepositoryDto repositoryDto, RepositoryInfoDto repositoryInfoDto, Repository repository) {
         repository.setUrl(repositoryDto.getUrl());
         repository.setName(parseRepositoryName(repositoryDto.getUrl()));
         repository.setStatus(RepositoryStatus.NEW);
         repository.setLastUpdateTime(new Date());
         repository.setAccessToken(repositoryDto.getAccessToken());
+        repository.setDescription(repositoryInfoDto.getDescription());
+        repository.setGitId(repositoryInfoDto.getId());
 
         return repository;
     }
@@ -33,6 +36,6 @@ public class RepositoryMapper {
     private String parseRepositoryName(String repositoryUrl) {
         String[] urlParts = repositoryUrl.split("/");
 
-        return urlParts[urlParts.length-1].replace("\\.git", "");
+        return urlParts[urlParts.length-1].replace(".git", "");
     }
 }
