@@ -74,6 +74,17 @@
             <artifactId>url-detector</artifactId>
             <version>0.1.23</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+            <version>6.4.0.202211300538-r</version>
+        </dependency>
+        <dependency>
+            <groupId>org.instancio</groupId>
+            <artifactId>instancio-junit</artifactId>
+            <version>2.4.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

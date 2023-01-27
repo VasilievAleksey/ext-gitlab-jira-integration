@@ -7,8 +7,10 @@ import com.vasilievaleksey.plugin.dto.RepositoryInfoDto;
 import com.vasilievaleksey.plugin.integration.PluginServerClient;
 import com.vasilievaleksey.plugin.mapper.RepositoryMapper;
 import com.vasilievaleksey.plugin.model.Repository;
+import com.vasilievaleksey.plugin.model.RepositoryStatus;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.java.ao.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -18,18 +20,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class RepositoryService {
     @ComponentImport
     private final ActiveObjects activeObjects;
     private final RepositoryMapper repositoryMapper;
     private final PluginServerClient pluginServerClient;
-
-    @Autowired
-    public RepositoryService(ActiveObjects activeObjects, RepositoryMapper repositoryMapper, PluginServerClient pluginServerClient) {
-        this.activeObjects = activeObjects;
-        this.repositoryMapper = repositoryMapper;
-        this.pluginServerClient = pluginServerClient;
-    }
 
     public List<RepositoryDto> getAll() {
         return Arrays.stream(activeObjects.find(Repository.class))
@@ -58,5 +54,15 @@ public class RepositoryService {
 
     public void delete(int id) {
         activeObjects.delete(activeObjects.get(Repository.class, id));
+    }
+
+    public void cloneNewRepositories() {
+        Repository[] repositories = activeObjects.find(Repository.class, Query.select().where("STATUS = ?", RepositoryStatus.NEW));
+
+        for (Repository repository : repositories) {
+            pluginServerClient.cloneNewRepository(repositoryMapper.convertToDTO(repository));
+            repository.setStatus(RepositoryStatus.SYNCHRONIZED);
+        }
+
     }
 }

@@ -26,7 +26,10 @@ public class PluginServerClient {
 
     public RepositoryInfoDto getRepositoryInfo(RepositoryDto repositoryDto) {
         return gson.fromJson(doRequest("repository", HttpMethod.POST, createHttpEntity(repositoryDto)), RepositoryInfoDto.class);
+    }
 
+    public void cloneNewRepository(RepositoryDto repositoryDto) {
+        doRequest("repository/clone", HttpMethod.POST, createHttpEntity(repositoryDto));
     }
 
     private String doRequest(String urlPath, HttpMethod httpMethod, HttpEntity<String> requestEntity) {

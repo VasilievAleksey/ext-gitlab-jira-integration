@@ -23,4 +23,10 @@ public class RepositoryController {
     public RepositoryInfoDto getInfo(@RequestBody RepositoryDto repositoryDto) {
         return repositoryService.getInfo(repositoryDto);
     }
+
+    @PostMapping
+    @RequestMapping("/clone")
+    public void cloneNewRepository(@RequestBody RepositoryDto repositoryDto) {
+        repositoryService.clone(repositoryDto);
+    }
 }
