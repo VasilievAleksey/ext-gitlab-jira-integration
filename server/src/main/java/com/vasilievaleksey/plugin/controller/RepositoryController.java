@@ -1,7 +1,6 @@
 package com.vasilievaleksey.plugin.controller;
 
-import com.vasilievaleksey.plugin.dto.RepositoryDto;
-import com.vasilievaleksey.plugin.dto.RepositoryInfoDto;
+import com.vasilievaleksey.plugin.dto.RepositoryDTO;
 import com.vasilievaleksey.plugin.service.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,13 +19,13 @@ public class RepositoryController {
     }
 
     @PostMapping
-    public RepositoryInfoDto getInfo(@RequestBody RepositoryDto repositoryDto) {
-        return repositoryService.getInfo(repositoryDto);
+    public RepositoryDTO.Response.RepositoryInfo getInfo(@RequestBody RepositoryDTO.Request.Credential credential) {
+        return repositoryService.getInfo(credential);
     }
 
     @PostMapping
     @RequestMapping("/clone")
-    public void cloneNewRepository(@RequestBody RepositoryDto repositoryDto) {
-        repositoryService.clone(repositoryDto);
+    public void cloneNewRepository(@RequestBody RepositoryDTO.Request.Credential credential) {
+        repositoryService.clone(credential);
     }
 }

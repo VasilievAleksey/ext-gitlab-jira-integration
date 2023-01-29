@@ -1,8 +1,7 @@
 package ut.com.vasilievaleksey.plugin.service;
 
 import com.vasilievaleksey.plugin.client.GitlabApiClient;
-import com.vasilievaleksey.plugin.dto.RepositoryDto;
-import com.vasilievaleksey.plugin.dto.RepositoryInfoDto;
+import com.vasilievaleksey.plugin.dto.RepositoryDTO;
 import com.vasilievaleksey.plugin.service.RepositoryService;
 import org.gitlab4j.api.models.Project;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +31,7 @@ class RepositoryServiceTest {
     void getInfo_IncorrectRepositoryUrl_ThrowException() {
         var incorrectRepositoryUrl = "test";
 
-        var exception = assertThrows(ResponseStatusException.class, () -> repositoryService.getInfo(new RepositoryDto(incorrectRepositoryUrl, "123")));
+        var exception = assertThrows(ResponseStatusException.class, () -> repositoryService.getInfo(new RepositoryDTO.Request.Credential(incorrectRepositoryUrl, "123")));
 
         assertEquals("Incorrect repository URL: "+ incorrectRepositoryUrl, exception.getReason());
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatus());
@@ -53,15 +52,11 @@ class RepositoryServiceTest {
 
         project.setDescription(testDescription);
 
-        var build = RepositoryInfoDto.builder()
-                .id(projectID)
-                .name(repositoryName)
-                .description(testDescription)
-                .build();
+        var build = new RepositoryDTO.Response.RepositoryInfo(projectID, repositoryName, testDescription);
 
         Mockito.when(gitlabApiClient.findProjectByName(hostUrl, accessToken, repositoryName)).thenReturn(project);
 
-        var obj = repositoryService.getInfo(new RepositoryDto(url, accessToken));
+        var obj = repositoryService.getInfo(new RepositoryDTO.Request.Credential(url, accessToken));
 
         assertEquals(build, obj);
     }

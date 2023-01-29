@@ -1,8 +1,7 @@
 package com.vasilievaleksey.plugin.integration;
 
 import com.google.gson.Gson;
-import com.vasilievaleksey.plugin.dto.RepositoryDto;
-import com.vasilievaleksey.plugin.dto.RepositoryInfoDto;
+import com.vasilievaleksey.plugin.dto.RepositoryDTO;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -24,12 +23,12 @@ public class PluginServerClient {
         gson = new Gson();
     }
 
-    public RepositoryInfoDto getRepositoryInfo(RepositoryDto repositoryDto) {
-        return gson.fromJson(doRequest("repository", HttpMethod.POST, createHttpEntity(repositoryDto)), RepositoryInfoDto.class);
+    public RepositoryDTO.Response.RepositoryInfo getRepositoryInfo(RepositoryDTO.Request.Credential credential) {
+        return gson.fromJson(doRequest("repository", HttpMethod.POST, createHttpEntity(credential)), RepositoryDTO.Response.RepositoryInfo.class);
     }
 
-    public void cloneNewRepository(RepositoryDto repositoryDto) {
-        doRequest("repository/clone", HttpMethod.POST, createHttpEntity(repositoryDto));
+    public void cloneNewRepository(RepositoryDTO.Request.Credential credential) {
+        doRequest("repository/clone", HttpMethod.POST, createHttpEntity(credential));
     }
 
     private String doRequest(String urlPath, HttpMethod httpMethod, HttpEntity<String> requestEntity) {

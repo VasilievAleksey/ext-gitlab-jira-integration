@@ -1,6 +1,6 @@
 package com.vasilievaleksey.plugin.controller;
 
-import com.vasilievaleksey.plugin.dto.RepositoryDto;
+import com.vasilievaleksey.plugin.dto.RepositoryDTO;
 import com.vasilievaleksey.plugin.service.RepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,14 +33,14 @@ public class RepositoryController {
     }
 
     @POST
-    public Response create(RepositoryDto repositoryDto) {
-        return Response.ok(repositoryService.create(repositoryDto)).build();
+    public Response create(RepositoryDTO.Request.Credential credential) {
+        return Response.ok(repositoryService.create(credential)).build();
     }
 
     @PUT
     @Path ("{id}")
-    public Response update(@PathParam("id") int id, RepositoryDto repositoryDto) {
-        return Response.ok(repositoryService.update(id, repositoryDto)).build();
+    public Response update(@PathParam("id") int id, RepositoryDTO.Request.Credential credential) {
+        return Response.ok(repositoryService.update(id, credential)).build();
     }
 
     @DELETE

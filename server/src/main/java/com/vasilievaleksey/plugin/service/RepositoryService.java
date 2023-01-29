@@ -4,16 +4,13 @@ import com.linkedin.urls.Url;
 import com.linkedin.urls.detection.UrlDetector;
 import com.linkedin.urls.detection.UrlDetectorOptions;
 import com.vasilievaleksey.plugin.client.GitlabApiClient;
-import com.vasilievaleksey.plugin.dto.RepositoryDto;
-import com.vasilievaleksey.plugin.dto.RepositoryInfoDto;
+import com.vasilievaleksey.plugin.dto.RepositoryDTO;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.lib.StoredConfig;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
-import org.gitlab4j.api.GitLabApi;
-import org.gitlab4j.api.GitLabApiException;
 import org.gitlab4j.api.models.Project;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,47 +26,22 @@ import java.util.Optional;
 public class RepositoryService {
     private GitlabApiClient gitlabApiClient;
 
-    public RepositoryInfoDto getInfo(RepositoryDto repositoryDto) {
-        final String hostUrl = parseHostUrl(repositoryDto.getUrl());
-        final String repositoryName = parseRepositoryName(repositoryDto.getUrl());
-        
-        return createRepositoryInfoDto(gitlabApiClient.findProjectByName(hostUrl,repositoryDto.getAccessToken(), repositoryName));
+    public RepositoryDTO.Response.RepositoryInfo getInfo(RepositoryDTO.Request.Credential credential) {
+        return createRepositoryInfoDto(gitlabApiClient.findProjectByName(credential.hostUrl(), credential.accessToken(), credential.repositoryName()));
     }
 
-    private RepositoryInfoDto createRepositoryInfoDto(Project project) {
-        return RepositoryInfoDto.builder()
-                .id(project.getId())
-                .name(project.getName())
-                .description(project.getDescription())
-                .build();
-    }
-
-    private String parseRepositoryName(String repositoryUrl) {
-        String[] urlParts = repositoryUrl.split("/");
-
-        return urlParts[urlParts.length - 1].replace(".git", "");
-    }
-
-    private String parseHostUrl(String repositoryUrl) {
-        UrlDetector parser = new UrlDetector(repositoryUrl, UrlDetectorOptions.Default);
-        Optional<Url> urlOptional = parser.detect().stream().findFirst();
-
-        if (urlOptional.isPresent()) {
-            Url url = urlOptional.get();
-            return url.getScheme() + "://" + url.getHost();
-        }
-
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect repository URL: " + repositoryUrl);
+    private RepositoryDTO.Response.RepositoryInfo createRepositoryInfoDto(Project project) {
+        return new RepositoryDTO.Response.RepositoryInfo(project.getId(), project.getName(), project.getDescription());
     }
 
     @SneakyThrows
-    public void clone(RepositoryDto repositoryDto) {
+    public void clone(RepositoryDTO.Request.Credential credential) {
         try (Git git = Git.cloneRepository()
-                .setURI(repositoryDto.getUrl())
+                .setURI(credential.url())
                 .setBare(true)
                 .setCloneAllBranches(true)
-                .setCredentialsProvider(new UsernamePasswordCredentialsProvider("gitlab-ci-token", repositoryDto.getAccessToken()))
-                .setDirectory(Paths.get(getRepositoryPath(repositoryDto)).toFile())
+                .setCredentialsProvider(new UsernamePasswordCredentialsProvider("gitlab-ci-token", credential.accessToken()))
+                .setDirectory(Paths.get(getRepositoryPath(credential.repositoryName())).toFile())
                 .call()) {
 
             saveConfig(git);
@@ -77,8 +49,8 @@ public class RepositoryService {
         }
     }
 
-    private String getRepositoryPath(RepositoryDto repositoryDto) {
-        return "./data/repository/" + parseRepositoryName(repositoryDto.getUrl());
+    private String getRepositoryPath(String repositoryName) {
+        return "./data/repository/" + repositoryName;
     }
 
     private void saveConfig(Git git) {
